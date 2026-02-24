@@ -1,0 +1,588 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Документация по практике">
+      
+      
+        <meta name="author" content="Коваленко Евгений">
+      
+      
+        <link rel="canonical" href="https://euuuuuukov.github.io/practice-emo/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.3">
+    
+    
+      
+        <title>Разработка алгоритма поиска областей электромагнитной обстановки</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="." title="Разработка алгоритма поиска областей электромагнитной обстановки" class="md-header__button md-logo" aria-label="Разработка алгоритма поиска областей электромагнитной обстановки" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Разработка алгоритма поиска областей электромагнитной обстановки
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Главная
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="purple"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="lime"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Главная
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="." title="Разработка алгоритма поиска областей электромагнитной обстановки" class="md-nav__button md-logo" aria-label="Разработка алгоритма поиска областей электромагнитной обстановки" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Разработка алгоритма поиска областей электромагнитной обстановки
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Главная
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="." class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Главная
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Как работает алгоритм
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Как работает алгоритм">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Поиск стартовой точки
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Определение границ области
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Детальный расчет внутри области
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Поиск остальных областей
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Входные данные (параметры)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Сборка и запуск
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Пример работы
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Что можно улучшить
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="_1">Алгоритм поиска областей электромагнитной обстановки (ЭМО)<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<p>Программа предназначена для поиска трехмерных областей пространства, в которых напряженность электрического поля превышает заданный порог. Она применяется при моделировании электромагнитной обстановки вокруг спутника с РСА, чтобы не просчитывать все точки подряд, а детально обследовать только нужные зоны. Алгоритм строит сетку с переменным шагом, находит хотя бы одну точку внутри области, затем уточняет ее границы и заполняет область значениями поля с заданной точностью. Поиск повторяется, пока не будут обнаружены все изолированные области.</p>
+<h2 id="_2">Как работает алгоритм<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>Работа разбита на несколько этапов.</p>
+<h3 id="1">1. Поиск стартовой точки<a class="headerlink" href="#1" title="Permanent link">&para;</a></h3>
+<p>Сначала задается максимальный шаг сетки (грубый). Программа перебирает все узлы с этим шагом и вызывает функцию расчета. Если находится точка, где выше порога, она запоминается как "затравочная". Если на текущей сетке ничего нет, шаг уменьшается вдвое, и проход повторяется. Так продолжается до тех пор, пока шаг не станет меньше минимально допустимого. Если точка так и не нашлась, считается, что в данной части пространства искомых областей нет.</p>
+<h3 id="2">2. Определение границ области<a class="headerlink" href="#2" title="Permanent link">&para;</a></h3>
+<p>От найденной точки выполняются шесть проходов - в положительном и отрицательном направлениях каждой координатной оси. Каждый проход состоит из двух частей:
+- Делаем прыжки с увеличивающимся шагом, пока не окажемся вне области (или за пределами расчетной области). Запоминаем последнюю точку внутри и первую снаружи.
+- Между внутренней и внешней точками применяем деление отрезка пополам, пока расстояние между ними не станет меньше заданной точности. Последняя внутренняя точка считается границей по данному направлению.</p>
+<p>В результате получаем прямоугольный параллелепипед, который заведомо содержит всю область.</p>
+<h3 id="3">3. Детальный расчет внутри области<a class="headerlink" href="#3" title="Permanent link">&para;</a></h3>
+<p>Внутри найденного параллелепипеда строится равномерная сетка с шагом, заданным пользователем. Для каждого узла вычисляется напряженность и сохраняется в одномерный тензор. Все просчитанные узлы помечаются в глобальном маркере, чтобы при следующем поиске не обрабатывать их повторно.</p>
+<h3 id="4">4. Поиск остальных областей<a class="headerlink" href="#4" title="Permanent link">&para;</a></h3>
+<p>После завершения обработки одной области программа возвращается к этапу 1, но теперь при переборе узлов игнорирует те, что уже помечены. Так продолжается, пока находятся новые затравочные точки. В итоге формируется список всех областей, каждая из которых содержит свои границы и тензор значений напряженности.</p>
+<h2 id="_3">Входные данные (параметры)<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p>Пользователь вводит следующие величины:</p>
+<ul>
+<li><strong>Глобальные границы</strong> - весь объем, в котором ведется поиск.</li>
+<li><strong>Пороговое значение напряженности</strong>.</li>
+<li><strong>Максимальный шаг поиска</strong> - начальный шаг сетки для поиска затравочных точек.</li>
+<li><strong>Минимальный шаг поиска</strong> - шаг, до которого может дробиться сетка, если грубый проход ничего не дал.</li>
+<li><strong>Шаг грубого расширения границы</strong> - величина первого прыжка при поиске границы.</li>
+<li><strong>Точность границы</strong> - минимальное расстояние, до которого уточняется положение границы.</li>
+<li><strong>Шаг детального расчета</strong> - шаг сетки внутри найденной области (финальный тензор).</li>
+</ul>
+<h2 id="_4">Сборка и запуск<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<p>Проект состоит из нескольких файлов:
+- <code>point.h</code>, <code>region.h</code> - описания структур.
+- <code>math_model.h</code>, <code>math_model.cpp</code> - тестовая функция, имитирующая поле.
+- <code>field_searcher.h</code>, <code>field_searcher.cpp</code> - основная логика.
+- <code>main.cpp</code> - консольный интерфейс.</p>
+<p>Для компиляции можно использовать любой компилятор с поддержкой C++17 (я делал в VS Code, поэтому все дальнейшие команды будут для него в <code>Developer Command Prompt for VS 2022</code>).</p>
+<div class="codehilite"><pre><span></span><code>cl<span class="w"> </span>/EHsc<span class="w"> </span>/std:c++17<span class="w"> </span>main.cpp<span class="w"> </span>field_searcher.cpp<span class="w"> </span>math_model.cpp
+main.exe
+</code></pre></div>
+
+<p>После запуска программа последовательно запрашивает все параметры. Их нужно вводить через пробел (для двух чисел) или просто число. Если ввод неверен, программа попросит повторить.</p>
+<h2 id="_5">Пример работы<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code>C:\Users\05kov\.vscode\practice-emo&gt;main.exe
+Введите параметры поиска областей ЭМО:
+Глобальные границы Xmin Xmax: -50 80
+Глобальные границы Ymin Ymax: -60 60
+Глобальные границы Zmin Zmax: -40 90
+Порог E_threshold: 50
+Шаги поиска (coarseStep fineStep): 20 2
+Шаги границы (borderCoarse borderFine): 10 0.5
+Шаг детального расчёта (detailStep): 1
+
+Запуск поиска...
+
+Найдено областей: 2
+
+Область 1:
+  X: [-1.875, 21.875]
+  Y: [-7.812, 7.812]
+  Z: [-4.375, 14.375]
+  Сетка: 24 x 16 x 19 = 7296 точек
+
+Область 2:
+  X: [-29.062, -10.938]
+  Y: [0.938, 19.062]
+  Z: [-25.312, -4.531]
+  Сетка: 19 x 19 x 21 = 7581 точек
+</code></pre></div>
+
+<h2 id="_6">Что можно улучшить<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<p>Вместо перебора по осям для поиска границ можно использовать градиентный подъем от затравочной точки, чтобы быстро выйти на максимум, а затем спускаться до порога. Однако для этого придется численно вычислять градиент, что увеличит число обращений к функции, но может ускорить определение формы области. Я могу вручную задать градиент или вычислить его какими-нибудь численными методами - это можно обсудить. Я пока не разобрался в физике явления, поэтому пока не могу утверждать, что локальный максимум один.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Коваленко Евгений, @euuuuuukov, 2026
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["navigation.tabs", "navigation.sections", "toc.integrate", "search.suggest", "search.highlight"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
